@@ -37,9 +37,22 @@ def crane(n: int) -> tuple[int, int, int]:
     return x, 4 * x, x
 
 
+def chocolate(n: int, m: int, k: int) -> bool:
+    return True if k < n * m and ((k % n == 0) or (k % m == 0)) else False
+
+
+def ticket(n) -> bool:
+    return True if (reduce(lambda x, y: x + y, list(map(int, str(n)))[:3]) ==
+                    reduce(lambda x, y: x + y, list(map(int, str(n)))[3:6])) else False
+
+
 if __name__ == '__main__':
     print(sumthree(123))
     print(sumthree(100))
     print(crane(6))
     print(crane(24))
     print(crane(60))
+    print("yes") if chocolate(3, 2, 4) else print("no")
+    print("yes") if chocolate(3, 2, 1) else print("no")
+    print("Счастливый") if ticket(385916) else print("Несчастливый")
+    print("Счастливый") if ticket(123456) else print("Несчастливый")
