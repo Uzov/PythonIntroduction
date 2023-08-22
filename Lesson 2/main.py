@@ -43,8 +43,8 @@ if __name__ == '__main__':
     print(list(powertwo(10)))
     print(list(powertwo(100)))
     print(list(powertwo(512)))
-    print(list(guess(7, 10))) #2 и 5
-    print(list(guess(1284, 396288))) #768 и 516
+    print(list(guess(7, 10))) # 2 и 5
+    print(list(guess(1284, 396288))) # 768 и 516
     print(list(guess(10, 25)))  # 5 и 5
     print(list(guess(10, 26)))  # ? и ?
 
