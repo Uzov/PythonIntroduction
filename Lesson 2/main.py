@@ -21,12 +21,13 @@ def mincoins(coins: tuple) -> None:
         if coin == 1: count += 1
     print(count) if count <= len(coins) / 2 else print(len(coins) - count)
 
-def guess(gSum: int, gProd) -> list[int, int]:
-    for i in range(1, int(gProd/2), 1):
-        if i == int(gProd/2) - 1:
+
+def guess(gSum: int, gProd) -> tuple[int, int]:
+    for i in range(1, int(gProd / 2), 1):
+        if i == int(gProd / 2) - 1:
             return -1, -1
-        if (gSum == gProd/i + i):
-            return i, gSum-i
+        if (gSum == gProd / i + i):
+            return i, gSum - i
 
 
 def powertwo(N: int) -> list:
@@ -43,8 +44,7 @@ if __name__ == '__main__':
     print(list(powertwo(10)))
     print(list(powertwo(100)))
     print(list(powertwo(512)))
-    print(list(guess(7, 10))) # 2 и 5
-    print(list(guess(1284, 396288))) # 768 и 516
-    print(list(guess(10, 25)))  # 5 и 5
-    print(list(guess(10, 26)))  # ? и ?
-
+    print(tuple(guess(7, 10)))  # 2 и 5
+    print(tuple(guess(1284, 396288)))  # 768 и 516
+    print(tuple(guess(10, 25)))  # 5 и 5
+    print(tuple(guess(10, 26)))  # ? и ?
