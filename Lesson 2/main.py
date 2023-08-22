@@ -15,14 +15,18 @@ __author__ = 'Юзов Евгений, Geekbrain'
 """
 import math
 
+
 def mincoins(coins: tuple) -> None:
     count = 0
     for coin in coins:
         if coin == 1: count += 1
     print(count) if count <= len(coins) / 2 else print(len(coins) - count)
+
 def powertwo(N:int) -> list:
-    for num in range(N):
-        if (num+1)%2 == 0: yield (num+1)
+    p = 1
+    while p < N:
+        yield p
+        p *= 2
 
 if __name__ == '__main__':
     'mincoins((1, 1, 0, 0, 0, 0, 0, 1))'
