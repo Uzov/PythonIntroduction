@@ -24,12 +24,14 @@ def mincoins(coins: tuple) -> None:
 
 def powertwo(N:int) -> list:
     p = 1
-    while p < N:
+    while p <= N:
         yield p
         p *= 2
 
 if __name__ == '__main__':
-    'mincoins((1, 1, 0, 0, 0, 0, 0, 1))'
-    'mincoins((1, 1, 0, 1, 1, 0, 0, 1))'
-    'mincoins((1, 1, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0, 1, 0, 0, 0, 1, 0, 1, 1, 0, 0, 1))'
+    mincoins((1, 1, 0, 0, 0, 0, 0, 1))
+    mincoins((1, 1, 0, 1, 1, 0, 0, 1))
+    mincoins((1, 1, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0, 1, 0, 0, 0, 1, 0, 1, 1, 0, 0, 1))
     print(list(powertwo(10)))
+    print(list(powertwo(100)))
+    print(list(powertwo(512)))
