@@ -51,7 +51,23 @@ def closer(list_1: list, num: int) -> list:
     return [i for i in range(0, len(lst)) if lst[i] == mi]
 
 
+# как оказывается, способ не совсем точный!
+def closer1(list_1: list, num: int) -> list:
+    mi = min(list_1, key=lambda x: abs(num - x))
+    return [i for i in range(0, len(list_1)) if list_1[i] == mi]
+
+
+points: dict[int, list[str]] = {1: ['A', 'E', 'I', 'O', 'U', 'L', 'N', 'S', 'T', 'R'],
+                                2: ['D', 'G'],
+                                3: ['B', 'C', 'M', 'P'],
+                                4: ['F', 'H', 'V', 'W', 'Y'],
+                                5: ['K'],
+                                8: ['J', 'X'],
+                                10: ['Q', 'Z']}
+
 if __name__ == '__main__':
     print(count([1, 2, 3, 4, 5, 3, 4, 5, 6, 7, 3, 2, 2, 4, 5, 7, 6, 4, 1, 3, 3, 34, 5, 6, 7, 0, 4, 0, 3, 3, 5, 6], 3))
     print(closer([1, 2, 3, 4, 5, 8, 3, 5, 6, 8, 4, 2, 10], 7))
-
+    print(closer1([1, 2, 3, 4, 5, 8, 3, 5, 6, 8, 4, 2, 10], 7))
+    print(closer([1, 2, 3, 4, 5, 7, 8, 3, 5, 6, 8, 4, 2, 10], 7))
+    print(closer1([1, 2, 3, 4, 5, 7, 8, 3, 5, 6, 8, 4, 2, 10], 7))
