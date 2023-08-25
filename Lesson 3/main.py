@@ -45,5 +45,13 @@ def count(list_1: list, num: int) -> int:
     return len(list(filter(lambda x: x == num, list_1)))
 
 
+def closer(list_1: list, num: int) -> list:
+    lst = list(map(lambda x: abs(num - x), list_1))
+    mi = min(lst)
+    return [i for i in range(0, len(lst)) if lst[i] == mi]
+
+
 if __name__ == '__main__':
     print(count([1, 2, 3, 4, 5, 3, 4, 5, 6, 7, 3, 2, 2, 4, 5, 7, 6, 4, 1, 3, 3, 34, 5, 6, 7, 0, 4, 0, 3, 3, 5, 6], 3))
+    print(closer([1, 2, 3, 4, 5, 8, 3, 5, 6, 8, 4, 2, 10], 7))
+
