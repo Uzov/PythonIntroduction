@@ -39,6 +39,7 @@ k = 6
 k = 'ноутбук'
 # 12
 """
+from functools import reduce
 
 
 def count(list_1: list, num: int) -> int:
@@ -77,6 +78,10 @@ def getpoint(value) -> int:
 
 
 def scrabble(value: list) -> int:
+    return reduce(lambda x, y: x + int(getpoint(y)), value, 0)
+
+
+def scrabble1(value: list) -> int:
     summa = 0
     for itm in value:
         summa = summa + getpoint(itm)
@@ -92,3 +97,5 @@ if __name__ == '__main__':
     #4+1+1+4+1+1+2
     print(scrabble('FORWARD'))
     print(scrabble("PYTHONIST"))
+    print(scrabble1('FORWARD'))
+    print(scrabble1("PYTHONIST"))
