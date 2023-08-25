@@ -22,7 +22,7 @@ def mincoins(coins: tuple) -> None:
     print(count) if count <= len(coins) / 2 else print(len(coins) - count)
 
 
-def guess(gSum: int, gProd) -> tuple[int, int]:
+def guess(gSum: int, gProd:int) -> tuple[int, int]:
     for i in range(1, int(gProd / 2), 1):
         if i == int(gProd / 2) - 1:
             return -1, -1
