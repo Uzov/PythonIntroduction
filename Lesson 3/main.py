@@ -63,7 +63,7 @@ def closer1(list_1: list, num: int) -> list:
     return [i for i in range(0, len(list_1)) if list_1[i] == mi]
 
 
-def getpoint(value) -> int:
+def getpoint(value: list) -> int:
     points: dict[int, list[str]] = {1: ['A', 'E', 'I', 'O', 'U', 'L', 'N', 'S', 'T', 'R'],
                                     2: ['D', 'G'],
                                     3: ['B', 'C', 'M', 'P'],
