@@ -16,10 +16,21 @@ __author__ = 'Юзов Евгений, Geekbrain'
 числа ягод, которое может собрать за один заход собирающий модуль, находясь перед некоторым кустом заданной во входном 
 файле грядки.
 """
-'from more_itertools import'
 
-def combination():
-    pass
+from collections import deque, Counter
+
+
+def intersect(lst_a: list, lst_b:list) -> list:
+    lst_c: list = []
+    for item in lst_a:
+        if item not in lst_c:
+            min_count = min(lst_a.count(item), lst_b.count(item))
+            lst_c += [item] * min_count
+    return sorted(lst_c)
+
+
+def intersectc(lst_a: list, lst_b:list) -> list:
+    return sorted(list((Counter(lst_a) & Counter(lst_b)).elements()))
 
 def blueberry(lst: list) -> int:
     lst_out: list = []
@@ -28,6 +39,23 @@ def blueberry(lst: list) -> int:
     return max(list(map(lambda x: sum(x), lst_out)))
 
 
+def blueberryc(lst: list) -> int:
+    res: int = 0
+    deq = deque(lst)
+    for _ in range(0, len(lst)):
+        deq.rotate(-1)
+        s: int = sum(list(deq)[:3:])
+        if res < s:
+            res = s
+    return res
+
+
 if __name__ == '__main__':
     in_lst = list(map(int, list(input('Введите список целых чисел через пробел: ').split(" "))))
     print(f'Максимальное числа ягод, которое система может собрать за один заход, находясь над некоторым кустом грядки: {blueberry(in_lst)}')
+    print(f'Максимальное числа ягод, которое система может собрать за один заход, находясь над некоторым кустом грядки: {blueberryc(in_lst)}')
+
+    in_lst_a = [5, 2, 4, 20, 4, 7, 1, 1, 4]
+    in_lst_b = [4, 1, 24, 20, 8, 4, 1, 1, 4, 4, 4]
+    print(intersect(in_lst_a, in_lst_b))
+    print(intersectc(in_lst_a, in_lst_b))
