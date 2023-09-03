@@ -15,13 +15,19 @@ __author__ = 'Юзов Евгений, Geekbrain'
 """
 
 
+def display(in_func):
+    def out_function(*args):
+        print(list(in_func(*args)))
+    return out_function
+
+
 def mincoins(coins: tuple) -> None:
     count = 0
     for coin in coins:
         if coin == 1: count += 1
     print(count) if count <= len(coins) / 2 else print(len(coins) - count)
 
-
+@display
 def guess(gSum: int, gProd:int) -> tuple[int, int]:
     for i in range(1, int(gProd / 2), 1):
         if i == int(gProd / 2) - 1:
@@ -30,9 +36,10 @@ def guess(gSum: int, gProd:int) -> tuple[int, int]:
             return i, gSum - i
 
 
-def powertwo(N: int) -> list:
+@display
+def powertwo(n: int) -> list:
     p = 1
-    while p <= N:
+    while p <= n:
         yield p
         p *= 2
 
@@ -41,10 +48,17 @@ if __name__ == '__main__':
     mincoins((1, 1, 0, 0, 0, 0, 0, 1))
     mincoins((1, 1, 0, 1, 1, 0, 0, 1))
     mincoins((1, 1, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0, 1, 0, 0, 0, 1, 0, 1, 1, 0, 0, 1))
-    print(list(powertwo(10)))
-    print(list(powertwo(100)))
-    print(list(powertwo(512)))
-    print(tuple(guess(7, 10)))  # 2 и 5
-    print(tuple(guess(1284, 396288)))  # 768 и 516
-    print(tuple(guess(10, 25)))  # 5 и 5
-    print(tuple(guess(10, 26)))  # ? и ?
+    #print(list(powertwo(10)))
+    #print(list(powertwo(100)))
+    #print(list(powertwo(512)))
+    powertwo(10)
+    powertwo(100)
+    powertwo(512)
+    #print(tuple(guess(7, 10)))  # 2 и 5
+    #print(tuple(guess(1284, 396288)))  # 768 и 516
+    #print(tuple(guess(10, 25)))  # 5 и 5
+    #print(tuple(guess(10, 26)))  # ? и ?
+    guess(7, 10)  # 2 и 5
+    guess(1284, 396288)  # 768 и 516
+    guess(10, 25)  # 5 и 5
+    guess(10, 26)  # ? и ?
