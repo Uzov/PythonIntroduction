@@ -63,7 +63,9 @@ def rithm_count(txt: string) -> map:
     return map(lambda x: count_vowels(x), a)
 
 
-def print_operation_table(operation, num_rows=6, num_columns=6) -> None:
+def print_operation_table(operation, **kwargs) -> None:
+    num_rows = kwargs.get('num_rows', 6)
+    num_columns = kwargs.get('num_columns', 6)
     for row in [[operation(row, column) for column in range(1, num_columns + 1)] for row in range(1, num_rows + 1)]:
         print(*row, sep=" ")
 
@@ -73,7 +75,9 @@ if __name__ == '__main__':
     print('\n' + '=' * 25 + '\n')
     rithm("пара-ра-рам рам-пам-папам па-ра-па-дам")
     rithm("пара-ра-рам рам-пам-папам па-ра-па-дам ооооооооо-вввввв")
-    print('\n' + '=' * 25 + '\n')
+    print('\n' + '=' * 30 + '\n')
     print_operation_table(lambda x, y: x * y)
-    print('\n' + '=' * 25 + '\n')
-    print_operation_table(lambda x, y: x * y, 7, 7)
+    print('\n' + '=' * 30 + '\n')
+    print_operation_table(lambda x, y: x * y, num_rows=10, num_columns=10)
+    print('\n' + '=' * 30 + '\n')
+    print_operation_table(lambda x, y: x * y, num_rows=100, num_columns=100)
