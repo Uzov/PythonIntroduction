@@ -39,7 +39,7 @@ print_operation_table(lambda x, y: x * y)
 
 def display(in_func):
     def out_function(*args):
-        print(list(in_func(*args)))
+        print(dict(enumerate(in_func(*args))))
     return out_function
 
 
