@@ -22,8 +22,7 @@ __author__ = 'Юзов Евгений, Geekbrain'
 """
 
 
-print([val for val, itm in enumerate([-5, 9, 0, 3, -1, -2, 1, 4, -2, 10, 2, 0, -9, 8, 10, -9, 0, -5, -5, 7])
-       if itm > 6])
+print([val for val, itm in enumerate([-5, 9, 0, 3, -1, -2, 1, 4, -2, 10, 2, 0, -9, 8, 10, -9, 0, -5, -5, 7]) if itm > 6])
 a1 = 7
 d = 2
 n = 5
