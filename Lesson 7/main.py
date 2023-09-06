@@ -76,7 +76,7 @@ if __name__ == '__main__':
     rithm("пара-ра-рам рам-пам-папам па-ра-па-дам")
     rithm("пара-ра-рам рам-пам-папам па-ра-па-дам ооооооооо-вввввв")
     print('\n' + '=' * 30 + '\n')
-    print_operation_table(lambda x, y: x * y)
+    print_operation_table(lambda *args: args[0] * args[1], num_columns=20)
     print('\n' + '=' * 30 + '\n')
     print_operation_table(lambda x, y: x * y, num_rows=10, num_columns=10)
     print('\n' + '=' * 30 + '\n')
