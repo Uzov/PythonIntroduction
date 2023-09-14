@@ -58,8 +58,8 @@ class Phonebook:
     def file(self):
         return self.__file
 
-    def create(self):  # Создаёт запись
-        pass
+    def create(self, person: Person, phone_number: str):  # Создаёт запись
+        print(f'{person}, Телефонный номер: {phone_number}')
 
     def find(self):  # Ищет записи
         pass
@@ -79,3 +79,4 @@ if __name__ == "__main__":
     print(p2)
     ph = Phonebook("textfile.csv")
     print(ph.file.name)
+    ph.create(p1, '+79173961424')
