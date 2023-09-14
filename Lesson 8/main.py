@@ -10,28 +10,34 @@
 Задача 38: Дополнить телефонный справочник возможностью изменения и удаления данных. Пользователь также может ввести
 имя или фамилию, и Вы должны реализовать функционал для изменения и удаления данных
 """
-from typing import TextIO
 
 import pandas as pd
 
 
 # import csv
 
+def display(in_func): # Декоратор для печати DataFrame
+    def out_function(*args):
+        print(dict(enumerate(in_func(*args))))
+    return out_function
+
 class Person:
     __type = "Person"
     __default = "Undefined"
 
     @staticmethod
-    def object_type():
+    def object_type() -> None:
         print(Person.__type)
 
-    def __init__(self, first_name=__default, second_name=__default, desc=__default) -> None:
+    def __init__(self, second_name=__default, first_name=__default, surname=__default, desc=__default) -> None:
         self.first_name = first_name  # Имя человека
         self.second_name = second_name  # Фамилия человека
+        self.surname = surname  # Отчество
         self.description = desc  # Описание человека
 
     def __str__(self) -> str:
-        return f"Имя: {self.first_name}, Фамилия: {self.second_name}, Описание: {self.description}"
+        return f"Фамилия: {self.second_name}, Имя: {self.first_name}, Отчество: {self.surname}, " \
+               f"Описание: {self.description}"
 
 
 class Phonebook:
@@ -42,41 +48,73 @@ class Phonebook:
         print(Phonebook.__type)
 
     @classmethod
-    def __create_csv(cls, filename: str) -> TextIO: # Создаём нужный текстовый файл
+    def __create_csv(cls, filename: str) -> None:  # Создаём нужный текстовый файл
         try:
-            columns = ['Имя', 'Фамилия', 'Описание', "Телефон"]
+            columns = ['second_name', 'first_name', 'surname', 'description', 'phone_number']
             df = pd.DataFrame(columns=columns)
-            df.to_csv(filename)
-            return open(filename, "a")
+            df.to_csv(filename, sep=";", mode='x')
         except FileExistsError:
-            return open(filename, "a")
+            pass
 
     def __init__(self, filename):
-        self.__file = Phonebook.__create_csv(filename)
+        Phonebook.__create_csv(filename)
+        self.__filename = filename
 
     @property
-    def file(self):
-        return self.__file
+    def file(self) -> str: # Узнать имя файла текущей телефонной книги
+        return self.__filename
 
-    def create(self, person: Person, phone_number: str):  # Создаёт запись
-        print(f'{person}, Телефонный номер: {phone_number}')
+    def add(self, person: Person, phone_number: str) -> None:  # Добавляет запись в конец файла
+        df = pd.DataFrame({'second_name': [person.second_name, ],
+                           'first_name': [person.first_name, ],
+                           'surname': [person.surname, ],
+                           'description': [person.description, ],
+                           'phone_number': [phone_number, ]})
+        try:
+            df.to_csv(self.__filename, mode='a', index=False, header=False, sep=";")
+            print(f'Запись {person} с телефонным номером: {phone_number} успешно добавлена!')
+        except Exception as error:
+            print(f'Запись {person} с телефонным номером: {phone_number} не добавлена!')
+            print(f'Произошла следующая ошибка: {error}!')
 
-    def find(self):  # Ищет записи
-        pass
+    def read(self): # Читает и выводит весь файл
+        df = pd.read_csv(self.__filename, delimiter=';',
+                         names=["Фамилия:", "Имя:", "Отчество:", "Описание:", "Телефон:"])
+        print(f'Найдено {len(df)} записей:\n{df}')
 
-    def update(self):  # Обновляет запись
-        pass
+    def find(self, display=True, *args):  # Ищет записи, если число критериев больше нуля
+        if len(args) == 0:
+            print(f'Записи не могут быть найдены! Введите хотя бы один аргумент!')
+            return
+        df = pd.read_csv(self.__filename, delimiter=';',
+                         names=["Фамилия:", "Имя:", "Отчество:", "Описание:", "Телефон:"])
+        lst1 = [*args]
+        for col in lst1:
+            df = df[df.isin([col, ]).any(axis=1)]
+        if display:
+            print(f'Найдено {len(df)} записей:\n{df}')
+        else:
+            return df
 
-    def delete(self):  # Стирает запись
-        pass
+    def update(self, *args):  # Обновляет запись
+        df = self.find(False, *args)
+        print(df)
+
+    def delete(self, *args):  # Стирает запись
+        df = self.find(False, *args)
+        print(df)
 
 
-if __name__ == "__main__":
+if __name__ == "__main__": # Проверка
     p1 = Person(first_name="Вася", second_name="Пупкин", desc="Тестовый пользователь")
-    print(p1)
-    p2 = Person(first_name="Женя")
-    p2.second_name = "Юзов"
-    print(p2)
+    #print(p1)
+    #p2 = Person(first_name="Женя")
+    #p2.second_name = "Юзов"
+    #print(p2)
     ph = Phonebook("textfile.csv")
-    print(ph.file.name)
-    ph.create(p1, '+79173961424')
+    #ph.add(p1, '+7 916 329-55-16')
+    #ph.find(True, "Людмила", "Игоревна")
+    #ph.find(False, "+7 499 586-05-91")
+    #ph.read()
+    ph.update("Людмила", "Игоревна")
+    ph.delete("Людмила", "Игоревна")
