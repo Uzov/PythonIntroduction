@@ -13,9 +13,6 @@
 
 import pandas as pd
 
-
-# import csv
-
 def display(in_func): # Декоратор для печати DataFrame
     def out_function(*args):
         print(dict(enumerate(in_func(*args))))
@@ -88,8 +85,8 @@ class Phonebook:
             return
         df = pd.read_csv(self.__filename, delimiter=';',
                          names=["Фамилия:", "Имя:", "Отчество:", "Описание:", "Телефон:"])
-        lst1 = [*args]
-        for col in lst1:
+        lst = [*args]
+        for col in lst:
             df = df[df.isin([col, ]).any(axis=1)]
         if display:
             print(f'Найдено {len(df)} записей:\n{df}')
@@ -98,11 +95,23 @@ class Phonebook:
 
     def update(self, *args):  # Обновляет запись
         df = self.find(False, *args)
-        print(df)
+        if len(df) == 0:
+            print(f'Запись для обновления не найдена, нечего обновлять!')
+        elif len(df) > 1:
+            print(f'Найдено {len(df)} записей:\n{df}')
+            input("Выберите id записи для обновления: ")
 
     def delete(self, *args):  # Стирает запись
         df = self.find(False, *args)
+        if len(df) == 0:
+            print(f'Запись для удаления не найдена, нечего удалять!')
+        elif len(df) > 1:
+            print(f'Найдено {len(df)} записей:\n{df}')
+            lst = [int(x) for x in input("Введите через пробел id записей для удаления: ").split()]
+        df = pd.read_csv(self.__filename, delimiter=';')
+        df = df.drop(labels=lst, axis=0)
         print(df)
+
 
 
 if __name__ == "__main__": # Проверка
@@ -116,5 +125,6 @@ if __name__ == "__main__": # Проверка
     #ph.find(True, "Людмила", "Игоревна")
     #ph.find(False, "+7 499 586-05-91")
     #ph.read()
-    ph.update("Людмила", "Игоревна")
-    ph.delete("Людмила", "Игоревна")
+    #ph.update("Людмила", "Игоревна")
+    #ph.delete("Людмила", "Игоревна")
+    ph.delete("Вася")
