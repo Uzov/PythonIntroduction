@@ -77,7 +77,7 @@ class Phonebook:
 
     def read(self): # Читает и выводит весь файл
         df = pd.read_csv(self.__filename, delimiter=';',
-                         names=["Фамилия:", "Имя:", "Отчество:", "Описание:", "Телефон:"])
+                         names=["Фамилия:", "Имя:", "Отчество:", "Описание:", "Телефон:"]).fillna("")
         print(f'Найдено {len(df)} записей:\n{df}')
 
     def find(self, display=True, *args):  # Ищет записи, если число критериев больше нуля
@@ -85,7 +85,7 @@ class Phonebook:
             print(f'Записи не могут быть найдены! Введите хотя бы один аргумент!')
             return
         df = pd.read_csv(self.__filename, delimiter=';',
-                         names=["Фамилия:", "Имя:", "Отчество:", "Описание:", "Телефон:"])
+                         names=["Фамилия:", "Имя:", "Отчество:", "Описание:", "Телефон:"]).fillna("")
         lst = [*args]
         for col in lst:
             df = df[df.isin([col, ]).any(axis=1)]
@@ -122,10 +122,10 @@ if __name__ == "__main__": # Проверка
     #p2.second_name = "Юзов"
     #print(p2)
     ph = Phonebook("textfile.csv")
-    ph.add(p1, '+7 916 329-55-16')
-    #ph.find(True, "Людмила", "Игоревна")
-    #ph.find(False, "+7 499 586-05-91")
+    #ph.add(p1, '+7 916 329-55-16')
+    ph.find(True, "Вася")
+    ph.find(True, "+7 499 586-05-91")
     #ph.read()
     #ph.update("Людмила", "Игоревна")
     #ph.delete("Людмила", "Игоревна")
-    #ph.delete("Вася")
+    ph.delete("Вася")
