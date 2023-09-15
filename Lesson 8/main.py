@@ -12,6 +12,7 @@
 """
 
 import pandas as pd
+import numpy as np
 
 def display(in_func): # Декоратор для печати DataFrame
     def out_function(*args):
@@ -20,7 +21,7 @@ def display(in_func): # Декоратор для печати DataFrame
 
 class Person:
     __type = "Person"
-    __default = "Undefined"
+    __default = np.nan
 
     @staticmethod
     def object_type() -> None:
@@ -121,10 +122,10 @@ if __name__ == "__main__": # Проверка
     #p2.second_name = "Юзов"
     #print(p2)
     ph = Phonebook("textfile.csv")
-    #ph.add(p1, '+7 916 329-55-16')
+    ph.add(p1, '+7 916 329-55-16')
     #ph.find(True, "Людмила", "Игоревна")
     #ph.find(False, "+7 499 586-05-91")
     #ph.read()
     #ph.update("Людмила", "Игоревна")
     #ph.delete("Людмила", "Игоревна")
-    ph.delete("Вася")
+    #ph.delete("Вася")
