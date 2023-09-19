@@ -26,7 +26,7 @@ def get_one_hot(inlst: list) -> list:
         yield outlst
 
 
-if __name__=="__main__":
+if __name__ =="__main__":
     lst = ['robot'] * 5
     lst += ['human'] * 5
     lst += ['animal'] * 5
