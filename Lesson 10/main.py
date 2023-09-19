@@ -21,15 +21,15 @@ import collections
 
 def get_one_hot(inlst: list) -> list:
     print(f'Входной список:\n {inlst}')
-    for itm in collections.Counter(lst).keys():
-        outlst = [True if lst[k] == itm else False for k in range(0, len(lst), 1)]
+    for itm in collections.Counter(inlst).keys():
+        outlst = [True if inlst[k] == itm else False for k in range(0, len(inlst), 1)]
         yield outlst
 
 
 if __name__ =="__main__":
-    lst = ['robot'] * 5
-    lst += ['human'] * 5
-    lst += ['animal'] * 5
+    lst = ["male"] * 5
+    lst += ["female"] * 5
+    lst += ["didn't deside"] * 5
     random.shuffle(lst)
     df = pd.DataFrame(columns=list(collections.Counter(lst).keys()))
     for i, itm in enumerate(list(zip(*list(get_one_hot(lst))))):
